@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  db:
+    platform: linux/x86_64 # M1チップ向け
+    image: mysql:8.0
+    volumes:
+      - ./tmp/mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+  web:
+    build:
+      context: .
+      dockerfile: ./infra/docker/web/Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./backend:/backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
