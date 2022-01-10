@@ -5,6 +5,8 @@ build:
 	docker compose build --no-cache --force-rm
 init:
 	@make build
+	docker compose exec web cp .env.example .env
+	docker compose exec web cp .env.example .env.testing
 	@make up
 remake:
 	@make destroy
