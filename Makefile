@@ -5,9 +5,13 @@ build:
 	docker compose build --no-cache --force-rm
 init:
 	@make build
-	docker compose exec web cp .env.example .env
-	docker compose exec web cp .env.example .env.testing
-	@make up
+	docker compose run web cp .env.example .env
+	docker compose run web cp .env.example .env.testing
+setup:
+	docker compose exec web rails db:create
+	docker compose exec web rails db:migrate
+	docker compose exec web rails webpacker:install
+	docker compose exec web rails webpacker:compile
 remake:
 	@make destroy
 	@make init

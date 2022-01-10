@@ -6,7 +6,8 @@
 ### 初期構築
 ```bash
 make init
-docker compose run web rake db:create
+make up
+make setup
 ```
 
 ### 起動
