@@ -1,0 +1,2 @@
+class ReservableFrame < ApplicationRecord
+end
