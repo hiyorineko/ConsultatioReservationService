@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_063947) do
+ActiveRecord::Schema.define(version: 2022_01_15_030809) do
 
   create_table "admins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_063947) do
     t.datetime "start_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["expert_id", "start_at"], name: "index_reservable_frames_on_expert_id_and_start_at", unique: true
     t.index ["expert_id"], name: "index_reservable_frames_on_expert_id"
   end
 
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_063947) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["expert_id"], name: "index_reserves_on_expert_id"
+    t.index ["user_id", "expert_id", "start_at"], name: "index_reserves_on_user_id_and_expert_id_and_start_at", unique: true
     t.index ["user_id"], name: "index_reserves_on_user_id"
   end
 

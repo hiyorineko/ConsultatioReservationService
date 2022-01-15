@@ -1,0 +1,104 @@
+<%= notice %>
+<h2>予約登録</h2>
+
+<div>
+    <h3>ご要望があればエキスパートを選択してください</h3>
+    <ul>
+        <% if @expert_id  %>
+            <li>
+                <a href="<%= users_reserve_register_path %>">指名なし</a>
+            </li>
+        <% else %>
+            <li>指名なし</li>
+        <% end %>
+    <% @experts.each do |expert| %>
+        <li>
+            <% if @expert_id == expert.id %>
+                <%= expert.name %>
+            <% else %>
+                <a href="<%= users_reserve_register_path(expert_id: expert.id) %>"><%= expert.name %></a>
+            <% end %>
+        </li>
+    <% end %>
+    </ul>
+    <% if @expert  %>
+    <div>
+        <img src="<%= @expert.get_image_path %>" alt="<%= @expert.name %>">
+        <h4><%= @expert.name %></h4>
+        <div><%= @expert.profile %></div>
+    </div>
+    <% end %>
+</div>
+<div>
+    <h3>ご希望の相談日時を選択してください</h3>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">
+                        <% if 1 < @page  %>
+                            <a href="<%= users_reserve_register_path(expert_id: @expert_id, page: @page - 1) %>">前の2週間</a>
+                        <% else %>
+                            前の2週間
+                        <% end %>
+                    </th>
+                    <% @dates.each do |k, v| %>
+                    <th colspan="<%= v.count %>">
+                        <%= k %>
+                    </th>
+                    <% end %>
+                    <th rowspan="2">
+                        <a href="<%= users_reserve_register_path(expert_id: @expert_id, page: @page + 1) %>">次の2週間</a>
+                    </th>
+                </tr>
+                <tr>
+                    <% @dates.each do |k, v| %>
+                        <% v.each do |date| %>
+                            <th><%= l(date['date'], format: :day) %> <br> <%= date['day'] %> </th>
+                        <% end %>
+                    <% end %>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        <table>
+                            <tbody>
+                            <% @frames.each do |frame| %>
+                                <tr><th><%= frame.strftime('%H:%M') %></th></tr>
+                            <% end %>
+                            </tbody>
+                        </table>
+                    </th>
+                    <% @reservable_frames.each do |k, v| %>
+                        <th>
+                            <table>
+                                <tbody>
+                                <% v.each do |schedule| %>
+                                    <tr><td>
+                                        <% if schedule['reservable'] %>
+                                            <%= link_to "○", users_reserve_register_confirm_path(expert_id: @expert_id, datetime: schedule['datetime']) %>
+                                        <% else %>
+                                            <span>×</span>
+                                        <% end %>
+                                    </td></tr>
+                                <% end %>
+                                </tbody>
+                            </table>
+                        </th>
+                    <% end %>
+                    <th>
+                        <table>
+                            <tbody>
+                            <% @frames.each do |frame| %>
+                                <tr><th><%= frame.strftime('%H:%M') %></th></tr>
+                            <% end %>
+                            </tbody>
+                        </table>
+                    </th>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

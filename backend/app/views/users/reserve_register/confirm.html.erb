@@ -1,0 +1,21 @@
+<%= notice %>
+<h2>予約登録内容確認</h2>
+
+<div>
+    <div>※予約はまだ完了しておりません</div>
+    <div>以下の内容で相談予約をいたします。</div>
+    <div>内容をご確認の上、[予約する]ボタンを押してください。</div>
+    <h3>ご予約内容</h3>
+    <form method="POST" action="<%= users_reserve_register_path %>">
+        <input type="hidden" name="datetime" value="<%= @datetime %>">
+        <input type="hidden" name="expert_id" value="<%= @expert_id %>">
+        <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div><label>予約日時</label><%= @datetime %></div>
+        <% if @expert %>
+            <div><label>エキスパート名</label><%= @expert.name %></div>
+        <% end %>
+        <div><label>ご要望・ご相談</label><input type="textarea" name="user_comment" value=""></div>
+        <p><input type="submit" value="予約する"></p>
+    </form>
+    <p><%= button_to "戻る", :back, method: :get %></p>
+</div>

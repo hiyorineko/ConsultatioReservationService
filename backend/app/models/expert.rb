@@ -6,4 +6,8 @@ class Expert < ApplicationRecord
 
   has_many :reserve
   has_many :reservable_frame
+
+  def get_image_path
+    image_path.presence || ""
+  end
 end

@@ -27,5 +27,7 @@ module Backend
                        controller_specs: false,
                        routing_specs: false
     end
+
+    config.autoload_paths +=  %W(#{config.root}/services)
   end
 end
