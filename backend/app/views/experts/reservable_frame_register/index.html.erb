@@ -1,0 +1,86 @@
+<%= notice %>
+<h2>予約可能枠登録</h2>
+
+<div>
+    <h3>ご希望の予約枠を選択して、[予約枠の登録]ボタンを押してください</h3>
+    <form method="POST" action="<%= experts_reservable_frame_register_path %>">
+        <input type="hidden" name="page" value="<%= @page %>">
+        <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th rowspan="2">
+                        <% if 1 < @page  %>
+                            <a href="<%= experts_reservable_frame_register_path(page: @page - 1) %>">前の2週間</a>
+                        <% else %>
+                            前の2週間
+                        <% end %>
+                    </th>
+                    <% @dates.each do |k, v| %>
+                        <th colspan="<%= v.count %>">
+                            <%= k %>
+                        </th>
+                    <% end %>
+                    <th rowspan="2">
+                        <a href="<%= experts_reservable_frame_register_path(page: @page + 1) %>">次の2週間</a>
+                    </th>
+                </tr>
+                <tr>
+                    <% @dates.each do |k, v| %>
+                        <% v.each do |date| %>
+                            <th><%= l(date['date'], format: :day) %> <br> <%= date['day'] %> </th>
+                        <% end %>
+                    <% end %>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>
+                        <table>
+                            <tbody>
+                            <% @frames.each do |frame| %>
+                                <tr><th><%= frame.strftime('%H:%M') %></th></tr>
+                            <% end %>
+                            </tbody>
+                        </table>
+                    </th>
+                    <% @reservable_frames.each do |k, v| %>
+                        <th>
+                            <table>
+                                <tbody>
+                                <% v.each do |schedule| %>
+                                    <tr><td>
+                                        <input type="hidden"
+                                               value="0"
+                                               name="reservable_frames[][<%= schedule['datetime'] %>"
+                                               <%= schedule['reserved'] ? 'disabled' : '' %>
+                                        >
+                                        <input type="checkbox"
+                                               name="reservable_frames[][<%= schedule['datetime'] %>]"
+                                               value="1"
+                                               <%= schedule['registered'] || schedule['reserved']  ? 'checked' : '' %>
+                                               <%= schedule['reserved'] ? 'disabled' : '' %>
+                                               >
+                                    </td></tr>
+                                <% end %>
+                                </tbody>
+                            </table>
+                        </th>
+                    <% end %>
+                    <th>
+                        <table>
+                            <tbody>
+                            <% @frames.each do |frame| %>
+                                <tr><th><%= frame.strftime('%H:%M') %></th></tr>
+                            <% end %>
+                            </tbody>
+                        </table>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><input type="submit" value="予約枠の登録"></p>
+    </form>
+</div>

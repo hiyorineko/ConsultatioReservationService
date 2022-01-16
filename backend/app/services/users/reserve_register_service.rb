@@ -42,7 +42,9 @@ class Users::ReserveRegisterService
   # 年月日をキーとした予約可否のハッシュを返す
   # @return  Hash:{
   #   YYYY-MM-DD => [
-  #     "○", "×",...
+  #     {
+  #       "datetime" => <Time>, "reservable" => <bool>,
+  #     }...
   #   ],...
   # }
   #

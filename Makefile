@@ -12,6 +12,8 @@ setup:
 	docker compose exec web rails db:migrate
 	docker compose exec web rails webpacker:install
 	docker compose exec web rails webpacker:compile
+	docker compose exec web rails db:create RAILS_ENV=test
+	docker compose exec web rails db:migrate RAILS_ENV=test
 remake:
 	@make destroy
 	@make init

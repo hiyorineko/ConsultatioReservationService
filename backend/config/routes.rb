@@ -9,6 +9,12 @@ Rails.application.routes.draw do
       post 'reserve_register' => 'reserve_register#register'
     end
   end
+  authenticated :expert do
+    namespace :experts do
+      get 'reservable_frame_register' => 'reservable_frame_register#index'
+      post 'reservable_frame_register' => 'reservable_frame_register#register'
+    end
+  end
   devise_for :admins
   devise_for :experts
   devise_for :users
