@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   end
   authenticated :expert do
     namespace :experts do
+      get 'profile' => 'profile#edit'
+      patch 'profile' => 'profile#update'
       get 'reserves' => 'reserves#index'
       get 'reservable_frame_register' => 'reservable_frame_register#index'
       post 'reservable_frame_register' => 'reservable_frame_register#register'
@@ -23,4 +25,5 @@ Rails.application.routes.draw do
   get '*path', controller: 'application', action: 'render_404'
   post '*path', controller: 'application', action: 'render_404'
   delete '*path', controller: 'application', action: 'render_404'
+  patch '*path', controller: 'application', action: 'render_404'
 end

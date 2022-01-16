@@ -1,0 +1,12 @@
+<%= notice %>
+<h2>プロフィールの編集</h2>
+<div>
+    <%= form_with url: experts_profile_path, method: :patch, html: {:multipart => true} do |f| %>
+        <div><label>名前</label><input type="test" name="name" value="<%= @expert.name %>"></div>
+        <div><label>プロフィール</label><input type="textarea" name="profile" value="<%= @expert.profile %>"></div>
+        <%= image_tag @expert.user_image.to_s if @expert.user_image? %>
+        <%= f.file_field :user_image %>
+        <%= f.hidden_field :user_image_cache %>
+        <%= f.submit %>
+    <% end %>
+</div>

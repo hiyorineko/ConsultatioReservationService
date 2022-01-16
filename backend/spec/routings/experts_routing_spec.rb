@@ -18,5 +18,15 @@ RSpec.describe "ルーティングテスト Experts", type: :request do
         expect(response).to have_http_status(404)
       end
     end
+    context 'プロフィール画面 未ログイン' do
+      it '更新処理 404であること' do
+        get("/experts/profile")
+        expect(response).to have_http_status(404)
+      end
+      it '更新処理 404であること' do
+        patch("/experts/profile")
+        expect(response).to have_http_status(404)
+      end
+    end
   end
 end

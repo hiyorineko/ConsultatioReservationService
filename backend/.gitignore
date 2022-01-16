@@ -38,3 +38,4 @@ yarn-debug.log*
 # application
 .env
 .env.testing
+/public/uploads

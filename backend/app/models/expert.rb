@@ -7,7 +7,9 @@ class Expert < ApplicationRecord
   has_many :reserve
   has_many :reservable_frame
 
+  mount_uploader :user_image, UserImageUploader
+
   def get_image_path
-    image_path.presence || ""
+    user_image.presence || "/no_avater.png"
   end
 end
