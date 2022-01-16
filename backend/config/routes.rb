@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   authenticated :expert do
     namespace :experts do
+      get 'reserves' => 'reserves#index'
       get 'reservable_frame_register' => 'reservable_frame_register#index'
       post 'reservable_frame_register' => 'reservable_frame_register#register'
     end

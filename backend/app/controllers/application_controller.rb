@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     when User
       users_reserves_path
     when Expert
-      experts_reservable_frame_register_path
+      experts_reserves_path
     when Admin
     end
   end

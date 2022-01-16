@@ -1,0 +1,13 @@
+<%= notice %>
+<h2>予約一覧</h2>
+<div>
+    <!-- 予約一覧のブロック -->
+    <% @reserves.each do |reserve| %>
+        <!-- 予約一つ一つのブロック -->
+        <div class="reserve">
+            <div><%= reserve.start_at %></div>
+            <div><%= reserve.user_comment %></div>
+            <div><%= reserve.user.email %></div>
+        </div>
+    <% end %>
+</div>
