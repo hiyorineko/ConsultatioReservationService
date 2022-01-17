@@ -4,6 +4,12 @@ RSpec.describe Users::ReserveRegisterService do
   describe "正常系" do
     before do
       @reservable_frame = FactoryBot.create(:reservable_frame, start_at: '2022-1-31 12:00'.to_time)
+      FactoryBot.create(:reservable_frame, start_at: '2022-1-08 10:30'.to_time, expert_id: @reservable_frame.expert_id)
+      FactoryBot.create(:reservable_frame, start_at: '2022-1-08 11:00'.to_time, expert_id: @reservable_frame.expert_id)
+      FactoryBot.create(:reservable_frame, start_at: '2022-1-08 15:00'.to_time, expert_id: @reservable_frame.expert_id)
+      FactoryBot.create(:reservable_frame, start_at: '2022-1-08 15:30'.to_time, expert_id: @reservable_frame.expert_id)
+      FactoryBot.create(:reservable_frame, start_at: '2022-1-09 12:00'.to_time, expert_id: @reservable_frame.expert_id)
+      FactoryBot.create(:reservable_frame, start_at: '2022-1-10 12:00'.to_time, expert_id: @reservable_frame.expert_id)
       @user = FactoryBot.create(:user)
       FactoryBot::create(:expert)
       @reserve_register_service = Users::ReserveRegisterService.new(
@@ -28,7 +34,7 @@ RSpec.describe Users::ReserveRegisterService do
       expect(result["2022年01月"].first).to eq expect_first
       expect(result["2022年02月"].last).to eq expect_last
     end
-    it "getReservableFrames" do
+    it "getReservableFrames 平日" do
       result = @reserve_register_service.getReservableFrames
       expect_true = {"datetime" => '2022-1-31 12:00'.to_time, "reservable" => true}
       expect_first = {"datetime" => '2022-1-20 10:00'.to_time, "reservable" => false}
@@ -38,6 +44,28 @@ RSpec.describe Users::ReserveRegisterService do
       expect(result["2022-01-20"].first).to eq expect_first
       expect(result["2022-02-02"].last).to eq expect_last
       expect(result["2022-01-31"]).to include expect_true
+    end
+    it "getReservableFrames 土日祝" do
+      # 日付を固定
+      travel_to('2022-1-05 12:00'.to_time)
+      result = @reserve_register_service.getReservableFrames
+      # 土曜日の予約枠の範囲外
+      expect1 = {"datetime" => '2022-1-08 10:30'.to_time, "reservable" => false}
+      # 土曜日の予約枠の範囲内
+      expect2 = {"datetime" => '2022-1-08 11:00'.to_time, "reservable" => true}
+      expect3 = {"datetime" => '2022-1-08 15:00'.to_time, "reservable" => true}
+      # 土曜日の予約枠の範囲外
+      expect4 = {"datetime" => '2022-1-08 15:30'.to_time, "reservable" => false}
+      # 日曜日の予約枠の範囲外
+      expect5 = {"datetime" => '2022-1-09 12:00'.to_time, "reservable" => false}
+      # 祝日の予約枠の範囲外
+      expect6 = {"datetime" => '2022-1-10 12:00'.to_time, "reservable" => false}
+      expect(result["2022-01-08"]).to include expect1
+      expect(result["2022-01-08"]).to include expect2
+      expect(result["2022-01-08"]).to include expect3
+      expect(result["2022-01-08"]).to include expect4
+      expect(result["2022-01-09"]).to include expect5
+      expect(result["2022-01-10"]).to include expect6
     end
     it "getStartDate" do
       result = @reserve_register_service.getStartDate

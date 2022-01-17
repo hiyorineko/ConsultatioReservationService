@@ -69,6 +69,25 @@ class Users::ReserveRegisterService
         @schedules[label] = []
         frames.each { |frame|
           target_frame = date['date'].to_time.since(frame.strftime('%H').to_i.hours).since(frame.strftime('%M').to_i.minutes)
+
+          # 土曜日の予約枠の範囲内チェック
+          if date['date'].wday == 6 && !@reserve_frame.verifyFrameSaturday(target_frame)
+            @schedules[label].push({"datetime" => target_frame, "reservable" => false})
+            next
+          end
+
+          # 日曜日の予約枠の範囲内チェック
+          if date['date'].wday == 0 && !@reserve_frame.verifyFrameHoliday(target_frame)
+            @schedules[label].push({"datetime" => target_frame, "reservable" => false})
+            next
+          end
+
+          # 祝日の予約枠の範囲内チェック
+          if HolidayJapan.check(date['date']) && !@reserve_frame.verifyFrameHoliday(target_frame)
+            @schedules[label].push({"datetime" => target_frame, "reservable" => false})
+            next
+          end
+
           if reservable_frames.find { |reservable_frame| reservable_frame.start_at.to_i == target_frame.to_i }
             @schedules[label].push({"datetime" => target_frame, "reservable" => true})
           else

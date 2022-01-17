@@ -114,6 +114,7 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    holiday_japan (1.4.4)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
@@ -281,6 +282,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   factory_bot_rails
+  holiday_japan
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mysql2 (~> 0.5)

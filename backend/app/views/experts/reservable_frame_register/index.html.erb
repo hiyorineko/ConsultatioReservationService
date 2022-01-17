@@ -51,17 +51,19 @@
                                 <tbody>
                                 <% v.each do |schedule| %>
                                     <tr><td>
+                                        <% if schedule['reservable'] %>
                                         <input type="hidden"
                                                value="0"
-                                               name="reservable_frames[][<%= schedule['datetime'] %>"
+                                               name="reservable_frames[<%= schedule['datetime'] %>"
                                                <%= schedule['reserved'] ? 'disabled' : '' %>
                                         >
                                         <input type="checkbox"
-                                               name="reservable_frames[][<%= schedule['datetime'] %>]"
+                                               name="reservable_frames[<%= schedule['datetime'] %>]"
                                                value="1"
                                                <%= schedule['registered'] || schedule['reserved']  ? 'checked' : '' %>
                                                <%= schedule['reserved'] ? 'disabled' : '' %>
                                                >
+                                        <% end %>
                                     </td></tr>
                                 <% end %>
                                 </tbody>
