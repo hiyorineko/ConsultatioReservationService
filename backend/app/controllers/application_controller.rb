@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # 例外処理
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionController::RoutingError, with: :render_404
-  rescue_from Exception, with: :render_404
+  #rescue_from Exception, with: :render_404
 
   protect_from_forgery with: :exception
 

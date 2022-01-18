@@ -1,2 +1,10 @@
-<h1>ユーザーヘッダー</h1>
-<div><%= button_to "ログアウト", "/users/sign_out", method: :delete, class: "delete-btn" %></div>
+<header>
+    <div class="logo">
+        <div>🍬Can<span>DyTalk</span></div>
+    </div>
+    <ul class="navi">
+        <li><a href="<%= users_reserves_path %>">予約一覧</a></li>
+        <li><a href="<%= users_reserve_register_path %>">予約登録</a></li>
+        <%= button_to "ログアウト", "/users/sign_out", method: :delete, class: "delete-btn" %>
+    </ul>
+</header>
