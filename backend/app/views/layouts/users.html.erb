@@ -8,10 +8,18 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
   </head>
 
   <body>
     <%= render 'layouts/users/head' %>
-    <%= yield %>
+    <div class="main">
+        <% flash.each do |key, value| %>
+            <div id="toast" class="<%= key %>">
+                <p><%= value %></p>
+            </div>
+        <% end %>
+        <%= yield %>
+    </div>
   </body>
 </html>

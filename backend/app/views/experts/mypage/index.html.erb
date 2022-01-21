@@ -3,7 +3,7 @@
 <h2>予約可能枠登録</h2>
 
 <div>
-    <h3>ご希望の予約枠を選択して、[予約可能枠の登録]ボタンを押してください</h3>
+    <h3>ご希望の予約枠を選択して、[予約枠の登録]ボタンを押してください</h3>
     <form method="POST" action="<%= experts_reservable_frame_register_path %>">
         <input type="hidden" name="page" value="<%= @page %>">
         <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -90,8 +90,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
-        <p><input type="submit" value="予約可能枠の登録" class="btn primary"></p>
-        </div>
+        <p><input type="submit" value="予約枠の登録"></p>
     </form>
 </div>

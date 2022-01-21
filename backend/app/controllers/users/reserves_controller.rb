@@ -1,7 +1,9 @@
 class Users::ReservesController < ApplicationController
   layout 'users'
   def index
-    @reserves = Reserve.eager_load(:expert).where(user_id: current_user.id)
+    @reserves = Reserve.eager_load(:expert)
+                       .where(user_id: current_user.id)
+                       .order(start_at: "DESC")
   end
 
   def delete

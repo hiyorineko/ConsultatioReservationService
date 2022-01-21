@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'reserve_register' => 'reserve_register#index'
       get 'reserve_register/confirm' => 'reserve_register#confirm'
       post 'reserve_register' => 'reserve_register#register'
+      get 'mypage' => 'mypage#index'
     end
   end
   authenticated :expert do
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
       get 'reserves' => 'reserves#index'
       get 'reservable_frame_register' => 'reservable_frame_register#index'
       post 'reservable_frame_register' => 'reservable_frame_register#register'
+      get 'mypage' => 'mypage#index'
     end
   end
   devise_for :admins

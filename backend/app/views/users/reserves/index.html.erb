@@ -1,14 +1,30 @@
-<%= notice %>
+<%= stylesheet_link_tag 'common/main' %>
+<%= stylesheet_link_tag 'common/reserves' %>
 <h2>予約一覧</h2>
 <div>
     <!-- 予約一覧のブロック -->
     <% @reserves.each do |reserve| %>
         <!-- 予約一つ一つのブロック -->
         <div class="reserve">
-            <div><%= reserve.start_at %></div>
-            <div><%= reserve.user_comment %></div>
-            <div><%= reserve.expert.email %></div>
-            <div><%= button_to "削除", "/users/reserve/delete/#{reserve.id}", method: :delete, class: "delete-btn" %></div>
+            <h3><%= reserve.start_at.strftime("%Y年%m月%d日 %H:%M") %>~<%= reserve.start_at.since(30.minutes).strftime("%H:%M") %></h3>
+            <div class="desc">
+                <div class="img">
+                    <img class="" src="<%= reserve.expert.get_image_path %>" alt="<%= reserve.expert.name %>">
+                </div>
+                <div class="info">
+                    <div class="expert_name"><label>担当 </label><div><%= reserve.expert.name %></div></div>
+
+                    <% if !reserve.user_comment.empty? %>
+                        <div class="user_comment"><label>相談内容 </label><div><%= reserve.user_comment %></div></div>
+                    <% end %>
+                </div>
+                <div class="del_button">
+                    <% if Time.now.to_i < reserve.start_at.to_i %>
+                        <%= button_to "キャンセル", "/users/reserve/delete/#{reserve.id}", method: :delete, class: "cancel-btn", data: { confirm: "【確認】予約をキャンセルしてもよろしいですか？" } %>
+                    <% end %>
+                </div>
+            </div>
+
         </div>
     <% end %>
 </div>

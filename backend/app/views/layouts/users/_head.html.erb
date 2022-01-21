@@ -1,10 +1,17 @@
+<%= stylesheet_link_tag 'common/header' %>
 <header>
-    <div class="logo">
-        <div>🍬Can<span>DyTalk</span></div>
+    <div class="row">
+        <h1 class="logo">
+            <div>🍬Can<span>DyTalk</span></div>
+        </h1>
     </div>
-    <ul class="navi">
-        <li><a href="<%= users_reserves_path %>">予約一覧</a></li>
-        <li><a href="<%= users_reserve_register_path %>">予約登録</a></li>
-        <%= button_to "ログアウト", "/users/sign_out", method: :delete, class: "delete-btn" %>
-    </ul>
+    <div class="row">
+        <nav class="menu-nav">
+            <ul>
+                <li><a href="<%= users_reserves_path %>"><div class="icon"><i class="fas fa-calendar-alt fa-2x"></i></div><div>予約一覧</div></a></li>
+                <li><a href="<%= users_reserve_register_path %>"><div class="icon"><i class="fas fa-calendar-plus fa-2x"></i></div><div>予約登録</div></a></li>
+                <li><a href="<%= users_mypage_path %>"><div class="icon"><i class="fas fa-user fa-2x"></i></div><div>マイページ</div></a></li>
+            </ul>
+        </nav>
+    </div>
 </header>

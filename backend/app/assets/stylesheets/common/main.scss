@@ -1,0 +1,201 @@
+#toast {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    background-color: #d4edda;
+    margin-top: 145px;
+}
+
+#toast > p {
+    margin-left: 8px;
+    font-size: small;
+    vertical-align: center;
+    color: #155724;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+
+#toast.alert {
+    background-color: #EEDDD9;
+}
+
+#toast.alert > p {
+    color: #730E15;
+}
+
+.main {
+    padding: 0 10px 120px 10px;
+    margin-top: 120px;
+    align-items: center;
+    width: 80%;
+}
+
+.main h2 {
+    color: #505050;/*文字色*/
+    padding: 0.5em;/*文字周りの余白*/
+    display: inline-block;/*おまじない*/
+    line-height: 1.3;/*行高*/
+    background: #dbebf8;/*背景色*/
+    vertical-align: middle;
+    border-radius: 25px 0px 0px 25px;/*左側の角を丸く*/
+    width:100%
+}
+
+.main h2:before {
+    content: '●';
+    color: white;
+    margin-right: 8px;
+}
+
+.stylistOptionList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px 0 20px -40px;
+}
+
+.stylistOptionList li {
+    list-style: none;
+}
+
+.stylistOptionList > li:not(:last-child) {
+    margin-right: 10px;
+}
+
+.stylistOptionList > li {
+    margin-top: 10px;
+}
+
+.stylistOptionList > li > a {
+    border: 1px solid #CCCCCC;
+    border-radius: 12.5px;
+    color: #666666;
+    display: block;
+    font-size: 11px;
+    line-height: 1;
+    padding: 5px 16px;
+    text-decoration: none;
+}
+
+.stylistOptionList > li.isSelected > a {
+    border-color: #D36985;
+    color: #CC4466;
+    font-weight: bold;
+    padding-left: 23px;
+    padding-right: 9px;
+    pointer-events: none;
+    position: relative;
+}
+
+.stylistOptionList > li.isSelected > a::before {
+    border-bottom: 2px solid #D36985;
+    border-right: 2px solid #D36985;
+    box-sizing: border-box;
+    content: "";
+    height: 9px;
+    left: 11px;
+    margin-right: 6px;
+    position: absolute;
+    top: 5px;
+    transform: rotate(
+        45deg);
+    width: 6px;
+}
+
+
+.profile {
+    background: #FFF;
+    width: 300px;
+    padding: 2rem;
+    border: 1px solid #1a1a1a;
+}
+
+.profile__img {
+    display: block;
+    width: 160px;
+    height: 160px;
+    border-radius:50%;
+    margin: 0 auto;
+}
+
+.profile__name {
+    text-align:center;
+    font-weight:bold;
+    font-size:1.2rem;
+    margin: 1rem auto 1rem;
+    letter-spacing:.1rem;
+}
+
+.profile__desc {
+    line-height:1.6rem;
+}
+
+table{
+    border-collapse:collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+table th,table td {
+    text-align: center;
+    border:solid 1px
+}
+
+.btn {
+    width: 300px;
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.primary {
+    background: #4676D7;
+    color: #fff;
+}
+
+.delete {
+    background: #dc3545;
+    color: #fff;
+}
+
+label {
+    font-weight: bold;
+}
+
+.textarea-primary {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    max-height: 170px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+    outline: none;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.mypage-edit img {
+    max-width: 80%;
+}
+
+@media screen and (max-width: 479px) {
+    .main {
+        width: 375px;
+        font-size: small;
+    }
+    .main h2 {
+        width: 100%;
+        font-size: small;
+    }
+    .main h3 {
+        font-size: xx-small;
+    }
+    #toast {
+        margin-top: 125px;
+    }
+}

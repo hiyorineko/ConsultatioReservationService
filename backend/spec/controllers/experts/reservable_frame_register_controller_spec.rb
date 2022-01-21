@@ -4,6 +4,7 @@ RSpec.describe Experts::ReservableFrameRegisterController, type: :controller do
   describe "予約登録画面" do
     before do
       @reservable_frame = FactoryBot.create(:reservable_frame, start_at: '2022-1-31 12:00'.to_time)
+      @reserve = FactoryBot.create(:reserve, expert_id: @reservable_frame.expert_id, start_at: '2022-01-20 12:00'.to_time)
       login_expert(@reservable_frame.expert)
     end
     around do |e|
@@ -24,11 +25,21 @@ RSpec.describe Experts::ReservableFrameRegisterController, type: :controller do
       expect(assigns(:reservable_frames)["2022-01-20"]).to include expect_reservable_frame
       expect(response).to render_template :index
     end
-    it "予約可能枠登録処理 登録処理完了後、予約可能枠一覧画面にリダイレクトされること" do
+    it "予約可能枠登録処理 登録処理成功パターン 予約可能枠一覧画面にリダイレクトされること" do
       post :register, params: { page: 1,
                                 reservable_frames: {"2022-02-02 10:00:00 +0000"=>"0", "2022-02-02 10:30:00 +0000"=>"0", "2022-02-02 11:00:00 +0000"=>"1", "2022-02-02 11:30:00 +0000"=>"0", "2022-02-02 12:00:00 +0000"=>"0", "2022-02-02 12:30:00 +0000"=>"0", "2022-02-02 13:00:00 +0000"=>"0", "2022-02-02 13:30:00 +0000"=>"0", "2022-02-02 14:00:00 +0000"=>"0", "2022-02-02 14:30:00 +0000"=>"0", "2022-02-02 15:00:00 +0000"=>"0", "2022-02-02 15:30:00 +0000"=>"0", "2022-02-02 16:00:00 +0000"=>"0", "2022-02-02 16:30:00 +0000"=>"0", "2022-02-02 17:00:00 +0000"=>"0", "2022-02-02 17:30:00 +0000"=>"0", "2022-02-02 18:00:00 +0000"=>"0"}
       }
       expect(response).to redirect_to("/experts/reservable_frame_register?page=1")
+      expect(flash[:notice]).to eq '予約可能枠を登録しました。'
+      expect(flash[:alert]).to eq nil
+    end
+    it "予約可能枠登録処理 登録処理失敗パターン 予約可能枠一覧画面にリダイレクトされること" do
+      post :register, params: { page: 1,
+                                reservable_frames: {"2022-01-20 12:00:00 +0000"=>"0"}
+      }
+      expect(response).to redirect_to("/experts/reservable_frame_register?page=1")
+      expect(flash[:notice]).to eq nil
+      expect(flash[:alert]).to eq 'ユーザーに相談予約をされている予約可能枠を削除することはできません。'
     end
   end
 end

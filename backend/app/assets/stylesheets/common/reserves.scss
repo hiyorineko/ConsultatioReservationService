@@ -1,0 +1,124 @@
+// Place all the styles related to the users::reserves controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.reserve .no-img {
+    width: 100%;
+}
+
+.reserve h3 {
+    padding: 0.5em;/*文字周りの余白*/
+    color: #010101;/*文字色*/
+    background: #eaf3ff;/*背景色*/
+    border-bottom: solid 3px #516ab6;/*下線*/
+    width: 100%;
+}
+
+.reserve .desc {
+    display: flex;
+    width: 100%;
+}
+
+.desc .img {
+    width: 10%;
+}
+
+.desc img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius:50%;
+    margin: 0 auto;
+}
+
+.desc .info {
+    width: 75%;
+}
+
+.desc .del_button{
+    width: 15%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.cancel-btn {
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    background: #dc3545;
+    color: #fff;
+}
+
+input[type=checkbox] {
+    transform: scale(2.5);
+}
+
+.reservable-frame-row {
+    height: 45px;
+}
+
+.calendar table {
+    table-layout: fixed;
+}
+
+.time-row {
+    width: 80px;
+}
+
+.not-reservable {
+    background: #999999;
+}
+
+.sat {
+    background-color: #D9E3EC;
+    color: #4466BB;
+}
+
+.sun {
+    background-color: #EEDDD9;
+    color: #BB5555;
+}
+
+@media screen and (max-width: 479px) {
+    .profile {
+    }
+    .calendar {
+        font-size: x-small;
+    }
+    .time-row {
+        width: 40px;
+    }
+    input[type=checkbox] {
+        transform: scale(0.8);
+        margin: 0;
+    }
+    .reservable-frame-row {
+        height: 20px;
+    }
+
+
+    .desc .img {
+        width: 20%;
+    }
+
+    .desc .info {
+        width: 55%;
+    }
+
+    .desc .del_button{
+        width: 20%;
+        margin-left: 10px;
+    }
+    .cancel-btn {
+        appearance: none;
+        border: 0;
+        border-radius: 5px;
+        padding: 4px 8px;
+        font-size: 8px;
+        margin-bottom: 30px;
+        background: #dc3545;
+        color: #fff;
+    }
+}

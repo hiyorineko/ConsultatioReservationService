@@ -19,7 +19,9 @@ class Experts::ReservableFrameRegisterController < ApplicationController
   def register
     service_init
     unless @service.verifyReservableFrames(params[:reservable_frames])
-      redirect_to experts_reservable_frame_register_path, notice: '予約登録されている予約枠を削除することはできません。'
+      redirect_to experts_reservable_frame_register_path(page: @service.getParamPage),
+                  alert: 'ユーザーに相談予約をされている予約可能枠を削除することはできません。'
+      return
     end
     @service.reservableFramesRegister(params[:reservable_frames])
     redirect_to experts_reservable_frame_register_path(page: @service.getParamPage),

@@ -1,0 +1,84 @@
+@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+header {
+    width: 100%;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    z-index: 1;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo div{
+    margin: 0; padding: 0;
+    color: #fff;
+    font-family: 'Exo', sans-serif;
+    font-size: 30px;
+    font-weight: 200;
+    width: max-content;
+}
+.logo div span{
+    color: #5379fa !important;
+}
+
+header .menu-nav a {
+    text-decoration: none;
+    color: #F7F7F7;
+}
+
+header .menu-nav ul {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    padding-left: 0;
+}
+
+header .menu-nav li {
+    font-size: 14px;
+    width: 120px;
+    line-height: 1.5;
+}
+
+.menu-nav i {
+    color: #F7F7F7;
+}
+
+.menu-nav div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+@media screen and (max-width: 479px) {
+    .logo div{
+        margin: 0; padding: 0;
+        color: #fff;
+        font-family: 'Exo', sans-serif;
+        font-size: 24px;
+        font-weight: 200;
+        width: max-content;
+    }
+    header .menu-nav a {
+        font-size: 11px;
+    }
+}

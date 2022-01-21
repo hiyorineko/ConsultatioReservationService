@@ -1,12 +1,28 @@
-<%= notice %>
+<%= stylesheet_link_tag 'common/main' %>
+<%= stylesheet_link_tag 'common/reserves' %>
 <h2>プロフィールの編集</h2>
-<div>
+<div class="mypage-edit">
     <%= form_with url: experts_profile_path, method: :patch, html: {:multipart => true} do |f| %>
-        <div><label>名前</label><input type="test" name="name" value="<%= @expert.name %>"></div>
-        <div><label>プロフィール</label><input type="textarea" name="profile" value="<%= @expert.profile %>"></div>
+        <div><label>名前</label><div><input type="test" name="name" value="<%= @expert.name %>" class="textarea-primary"></div></div>
+        <div><label>プロフィール</label><div><input type="textarea" name="profile" value="<%= @expert.profile %>" class="textarea-primary"></div></div>
+        <div><label>プロフィール画像</label>
+            <div>
         <%= image_tag @expert.user_image.to_s if @expert.user_image? %>
         <%= f.file_field :user_image %>
         <%= f.hidden_field :user_image_cache %>
-        <%= f.submit %>
+            </div>
+        </div>
+        <div class="row">
+            <p><input type="submit" value="保存する" class="btn primary"></p>
+        </div>
     <% end %>
+    <h2>その他</h2>
+    <div>
+        <div class="row">
+            <%= button_to "ログアウト", "/experts/sign_out", method: :delete, class: "btn primary" %>
+        </div>
+        <div class="row">
+            <%= button_to "退会", "/experts", method: :delete, class: "btn delete", data: { confirm: "【確認】アカウントを削除してもよろしいですか？" }%>
+        </div>
+    </div>
 </div>

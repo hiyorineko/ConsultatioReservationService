@@ -47,13 +47,19 @@ RSpec.describe "ルーティングテスト Users", type: :request do
         expect(response).to have_http_status(302)
       end
     end
-    context '予約登録画面 ログイン済未ログイン' do
+    context '予約登録画面 未ログイン' do
       it '画面表示 404であること' do
         get("/users/reserve_register")
         expect(response).to have_http_status(404)
       end
       it '登録処理  404であること' do
         get("/users/reserve_register/confirm")
+        expect(response).to have_http_status(404)
+      end
+    end
+    context 'マイページ画面 未ログイン' do
+      it '画面表示 404であること' do
+        get("/users/mypage")
         expect(response).to have_http_status(404)
       end
     end

@@ -1,4 +1,5 @@
-<%= notice %>
+<%= stylesheet_link_tag 'common/main' %>
+<%= stylesheet_link_tag 'common/reserves' %>
 <h2>予約登録内容確認</h2>
 
 <div>
@@ -10,12 +11,13 @@
         <input type="hidden" name="datetime" value="<%= @datetime %>">
         <input type="hidden" name="expert_id" value="<%= @expert_id %>">
         <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <div><label>予約日時</label><%= @datetime %></div>
+        <div><label>予約日時</label><div>
+            <%= @datetime.to_time.strftime("%Y年%m月%d日 %H:%M") %>~<%= @datetime.to_time.since(30.minutes).strftime("%H:%M") %>
+        </div></div>
         <% if @expert %>
-            <div><label>エキスパート名</label><%= @expert.name %></div>
+            <div><label>エキスパート名</label><div><%= @expert.name %></div></div>
         <% end %>
-        <div><label>ご要望・ご相談</label><input type="textarea" name="user_comment" value=""></div>
-        <p><input type="submit" value="予約する"></p>
+        <div><label>ご要望・ご相談</label><input type="textarea" name="user_comment" class="textarea-primary"></div>
+        <p><input type="submit" value="予約する" class="btn primary"></p>
     </form>
-    <p><%= button_to "戻る", :back, method: :get %></p>
 </div>

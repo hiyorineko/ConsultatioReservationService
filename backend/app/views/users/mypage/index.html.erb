@@ -1,0 +1,9 @@
+<%= stylesheet_link_tag 'common/main' %>
+<%= stylesheet_link_tag 'common/reserves' %>
+<h2>マイページ</h2>
+<div class="row">
+<%= button_to "ログアウト", "/users/sign_out", method: :delete, class: "btn primary" %>
+</div>
+<div class="row">
+<%= button_to "退会", "/users", method: :delete, class: "btn delete", data: { confirm: "【確認】アカウントを削除してもよろしいですか？" }%>
+</div>
