@@ -9,10 +9,10 @@ class Users::ReservesController < ApplicationController
   def delete
     reserve = Reserve.find_by(id: params[:reserve_id], user_id: current_user.id)
     if reserve.nil? || reserve.start_at.to_i <= Time.now.to_i
-      redirect_to "/users/reserves", notice: '予約の取り消しに失敗しました。'
+      redirect_to "/users/reserves", notice: '予約のキャンセルに失敗しました。'
       return
     end
     reserve.destroy
-    redirect_to "/users/reserves", notice: '予約の取り消しが完了しました。'
+    redirect_to "/users/reserves", notice: '予約をキャンセルしました。'
   end
 end
