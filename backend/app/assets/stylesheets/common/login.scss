@@ -142,6 +142,33 @@ body{
     color: rgba(255,255,255,0.6);
 }
 
+#toast {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    background-color: #d4edda;
+    z-index: 5;
+}
+
+#toast > p {
+    margin-left: 8px;
+    font-size: small;
+    vertical-align: center;
+    color: #155724;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+
+#toast.alert {
+    background-color: #EEDDD9;
+}
+
+#toast.alert > p {
+    color: #730E15;
+}
+
 
 @media screen and (max-width: 479px) {
     .header{
