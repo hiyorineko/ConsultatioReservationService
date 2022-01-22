@@ -4,6 +4,7 @@
 <div>
     <!-- 予約一覧のブロック -->
     <% @reserves.each do |reserve| %>
+        <% if reserve.expert %>
         <!-- 予約一つ一つのブロック -->
         <div class="reserve">
             <h3><%= reserve.start_at.strftime("%Y年%m月%d日 %H:%M") %>~<%= reserve.start_at.since(30.minutes).strftime("%H:%M") %></h3>
@@ -30,7 +31,7 @@
                     <% end %>
                 </div>
             </div>
-
         </div>
+        <% end %>
     <% end %>
 </div>
