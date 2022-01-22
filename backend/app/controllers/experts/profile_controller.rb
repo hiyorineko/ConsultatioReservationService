@@ -9,8 +9,18 @@ class Experts::ProfileController < ApplicationController
       current_expert.id,
       name: params[:name],
       profile: params[:profile],
-      user_image: params[:user_image]
+      expert_type_id: params[:expert_type_id]
     )
+
+    ## 画像更新処理
+    if params[:user_image]
+      Expert.find(current_expert.id).remove_user_image!
+      Expert.update(
+        current_expert.id,
+        user_image: params[:user_image]
+      )
+    end
+
     redirect_to experts_profile_path,
                 notice: 'プロフィールを更新しました。'
   end
