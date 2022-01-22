@@ -1,0 +1,8 @@
+<p>CanDyTalkをご利用いただきありがとうございます。</p>
+
+<p>ユーザーより以下の内容の予約が登録されました。</p>
+
+<p>[予約日時]<%= @reserve.start_at.strftime("%Y年%m月%d日 %H:%M") %>~<%= @reserve.start_at.since(30.minutes).strftime("%H:%M") %></p>
+<p>[専門種別]<%= @expert_type.name %></p>
+<p>[メールアドレス]<%= @user.email %></p>
+<p>[コメント]<%= @reserve.user_comment %></p>

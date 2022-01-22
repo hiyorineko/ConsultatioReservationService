@@ -17,7 +17,7 @@
             <a href="<%= users_reserve_register_path %>">指名なし</a>
         </li>
     <% @experts.each do |expert| %>
-            <% if !expert.name.empty?  %>
+            <% if expert.name  %>
             <li <% if @expert_id == expert.id  %> class="isSelected" <% end %>>
                 <a href="<%= users_reserve_register_path(expert_id: expert.id) %>"><%= expert.name %></a>
             </li>

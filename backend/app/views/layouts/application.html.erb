@@ -15,7 +15,7 @@
           <p><%= value %></p>
       </div>
   <% end %>
-  <% if resource.errors.any? %>
+  <% if (defined? resource) && resource.errors.any? %>
       <% resource.errors.full_messages.each do |message| %>
           <div id="toast" class="alert">
               <p><%= message %></p>

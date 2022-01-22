@@ -70,6 +70,24 @@ body{
     color: #fff;
 }
 
+.login select {
+    width: 250px;
+    height: 30px;
+}
+
+.login input[type=text]{
+    width: 250px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 2px;
+    color: #fff;
+    font-family: 'Exo', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 4px;
+}
+
 .login input[type=email]{
     width: 250px;
     height: 30px;
@@ -118,6 +136,11 @@ body{
 
 .login input[type=submit]:active{
     opacity: 0.6;
+}
+
+.login input[type=text]:focus{
+    outline: none;
+    border: 1px solid rgba(255,255,255,0.9);
 }
 
 .login input[type=email]:focus{

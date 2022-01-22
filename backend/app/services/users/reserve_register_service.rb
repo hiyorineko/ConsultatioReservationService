@@ -187,6 +187,14 @@ class Users::ReserveRegisterService
         ## 予約可能枠を削除
         reservable_frame.destroy
       end
+
+      user = User.find(reserve.user_id)
+      expert = Expert.find(reserve.expert_id)
+      expert_type = ExpertType.find(expert.expert_type_id)
+
+      ## 予約登録の通知
+      ReserveRegisterMailer.send_reserve_complete_email_to_user(reserve, user, expert, expert_type).deliver
+      ReserveRegisterMailer.send_reserve_complete_email_to_expert(reserve, user, expert_type).deliver
     end
   end
 
