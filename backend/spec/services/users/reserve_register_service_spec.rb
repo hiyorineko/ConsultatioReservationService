@@ -10,13 +10,15 @@ RSpec.describe Users::ReserveRegisterService do
       FactoryBot.create(:reservable_frame, start_at: '2022-1-08 15:30'.to_time, expert_id: @reservable_frame.expert_id)
       FactoryBot.create(:reservable_frame, start_at: '2022-1-09 12:00'.to_time, expert_id: @reservable_frame.expert_id)
       FactoryBot.create(:reservable_frame, start_at: '2022-1-10 12:00'.to_time, expert_id: @reservable_frame.expert_id)
+      @reservable_frame_other_expert_type = FactoryBot.create(:reservable_frame, start_at: '2022-1-22 12:00'.to_time)
       @user = FactoryBot.create(:user)
       FactoryBot::create(:expert)
       @reserve_register_service = Users::ReserveRegisterService.new(
         1,
         @reservable_frame.expert_id,
         @reservable_frame.start_at,
-        "test comment"
+        "test comment",
+        @reservable_frame.expert.expert_type_id
       )
     end
     around do |e|
@@ -39,11 +41,13 @@ RSpec.describe Users::ReserveRegisterService do
       expect_true = {"datetime" => '2022-1-31 12:00'.to_time, "reservable" => true}
       expect_first = {"datetime" => '2022-1-20 10:00'.to_time, "reservable" => false}
       expect_last = {"datetime" => '2022-2-02 18:00'.to_time, "reservable" => false}
+      expect_not_include = {"datetime" => '2022-1-22 12:00'.to_time, "reservable" => true}
       expect(result).to include "2022-01-20"
       expect(result).to include "2022-02-02"
       expect(result["2022-01-20"].first).to eq expect_first
       expect(result["2022-02-02"].last).to eq expect_last
       expect(result["2022-01-31"]).to include expect_true
+      expect(result["2022-01-22"]).not_to include expect_not_include
     end
     it "getReservableFrames 土日祝" do
       # 日付を固定
@@ -66,6 +70,11 @@ RSpec.describe Users::ReserveRegisterService do
       expect(result["2022-01-08"]).to include expect4
       expect(result["2022-01-09"]).to include expect5
       expect(result["2022-01-10"]).to include expect6
+    end
+    it "getReservableFrames expert_typeが異なる枠が予約可能枠として表示されていないこと" do
+      result = @reserve_register_service.getReservableFrames
+      expect_not_include = {"datetime" => @reservable_frame_other_expert_type.start_at, "reservable" => true}
+      expect(result["2022-01-22"]).not_to include expect_not_include
     end
     it "getStartDate" do
       result = @reserve_register_service.getStartDate
@@ -100,10 +109,10 @@ RSpec.describe Users::ReserveRegisterService do
       result = @reserve_register_service.getExpert
       expect(result).to eq @reservable_frame.expert
     end
-    it "getAllExperts" do
-      result = @reserve_register_service.getAllExperts
+    it "getExperts" do
+      result = @reserve_register_service.getExperts
       expect(result).to include @reservable_frame.expert
-      expect(result.count).to eq 2
+      expect(result.count).to eq 1
     end
     it "reserveRegister" do
       @reserve_register_service.reserveRegister(@user.id)
@@ -113,6 +122,19 @@ RSpec.describe Users::ReserveRegisterService do
     it "getParamDateTime" do
       result = @reserve_register_service.getParamDateTime
       expect(result.to_i).to eq @reservable_frame.start_at.to_i
+    end
+    it "getAllExpertTypes" do
+      result = @reserve_register_service.getAllExpertTypes
+      expect(result).to include @reservable_frame.expert.expert_type
+      expect(result).to include @reservable_frame_other_expert_type.expert.expert_type
+    end
+    it "getParamExpertTypeId" do
+      result = @reserve_register_service.getParamExpertTypeId
+      expect(result).to eq @reservable_frame.expert.expert_type_id
+    end
+    it "getExpertType" do
+      result = @reserve_register_service.getExpertType
+      expect(result).to eq @reservable_frame.expert.expert_type
     end
   end
 end

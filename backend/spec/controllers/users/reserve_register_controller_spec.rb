@@ -14,11 +14,13 @@ RSpec.describe Users::ReserveRegisterController, type: :controller do
       travel_to('2022-1-20 12:00'.to_time) {e.run}
     end
     it "予約枠一覧画面表示 予約枠が取得できていること テンプレートが表示されること" do
-      get :index, params: { page: 1, expert_id: @reservable_frame.expert_id }
+      get :index, params: { page: 1, expert_id: @reservable_frame.expert_id, expert_type_id: @reservable_frame.expert.expert_type_id }
       expect(assigns(:page)).to eq 1
       expect(assigns(:expert_id)).to eq @reservable_frame.expert_id
       expect(assigns(:expert)).to eq @reservable_frame.expert
       expect(assigns(:experts)).to include @reservable_frame.expert
+      expect(assigns(:expert_types)).to eq ExpertType.all
+      expect(assigns(:expert_type_id)).to eq @reservable_frame.expert.expert_type_id
       expect_date = {"date" => Date.new(2022, 2, 2), "day" =>"(水)"}
       expect(assigns(:dates)).to include "2022年02月"
       expect(assigns(:dates)["2022年02月"]).to include expect_date
@@ -32,6 +34,7 @@ RSpec.describe Users::ReserveRegisterController, type: :controller do
       expect(assigns(:datetime).to_time).to eq @reservable_frame.start_at
       expect(assigns(:expert_id)).to eq @reservable_frame.expert_id
       expect(assigns(:expert)).to eq @reservable_frame.expert
+      expect(assigns(:expert_type)).to eq @reservable_frame.expert.expert_type
       expect(response).to render_template :confirm
     end
     it "予約登録処理 予約が登録され、予約一覧画面にリダイレクトされること" do

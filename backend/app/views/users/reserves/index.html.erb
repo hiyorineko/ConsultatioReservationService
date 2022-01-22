@@ -12,7 +12,13 @@
                     <img class="" src="<%= reserve.expert.get_image_path %>" alt="<%= reserve.expert.name %>">
                 </div>
                 <div class="info">
-                    <div class="expert_name"><label>担当 </label><div><%= reserve.expert.name %></div></div>
+                    <div class="expert_name">
+                        <% if reserve.expert.expert_type %>
+                            <label><%= reserve.expert.expert_type.name %></label>
+                        <% else %>
+                            <label>担当者</label>
+                        <% end %>
+                        <div><%= reserve.expert.name %></div></div>
 
                     <% if !reserve.user_comment.empty? %>
                         <div class="user_comment"><label>相談内容 </label><div><%= reserve.user_comment %></div></div>

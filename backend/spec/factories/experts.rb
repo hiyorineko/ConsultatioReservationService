@@ -4,5 +4,6 @@ FactoryBot.define do
     sequence(:email) { |n| "TEST#{n}@example.com"}
     sequence(:password) { |n| "TEST_PASS_#{n}"}
     sequence(:password_confirmation) { |n| "TEST_PASS_#{n}"}
+    association :expert_type
   end
 end

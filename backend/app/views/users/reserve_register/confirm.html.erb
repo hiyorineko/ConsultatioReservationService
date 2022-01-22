@@ -11,6 +11,7 @@
         <input type="hidden" name="datetime" value="<%= @datetime %>">
         <input type="hidden" name="expert_id" value="<%= @expert_id %>">
         <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <div><label>エキスパートの種類</label><div><%= @expert_type.name %></div></div>
         <div><label>予約日時</label><div>
             <%= @datetime.to_time.strftime("%Y年%m月%d日 %H:%M") %>~<%= @datetime.to_time.since(30.minutes).strftime("%H:%M") %>
         </div></div>

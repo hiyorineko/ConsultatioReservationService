@@ -3,7 +3,8 @@ class Users::ReserveRegisterService
     page = nil,
     expert_id = nil,
     datetime = nil,
-    user_comment = nil
+    user_comment = nil,
+    expert_type_id = nil
   )
     if page
       @page = page.to_i
@@ -16,6 +17,7 @@ class Users::ReserveRegisterService
     @datetime = datetime
     @user_comment = user_comment
     @reserve_frame = ReserveFrame.new
+    @expert_type_id = expert_type_id.to_i
   end
 
   # 年月をキーとした日にちと曜日のHashを取得
@@ -56,9 +58,11 @@ class Users::ReserveRegisterService
     last_frame = getLastFrame
 
     reservable_frames = ReservableFrame
+                          .joins(:expert)
                           .select(:start_at)
                           .group(:start_at)
                           .where(start_at: start_frame..last_frame)
+                          .where(expert: { expert_type_id: @expert_type_id })
     if @expert_id
       reservable_frames = reservable_frames.where(expert_id: @expert_id)
     end
@@ -155,10 +159,10 @@ class Users::ReserveRegisterService
     Expert.find_by(id: @expert_id)
   end
 
-  # エキスパート全てを取得
+  # 選択された種別のエキスパートの取得
   # @return ActiveRecord::Relation<Expert>
-  def getAllExperts
-    Expert.all
+  def getExperts
+    Expert.where(expert_type_id: @expert_type_id)
   end
 
   # Reserveを登録
@@ -188,5 +192,17 @@ class Users::ReserveRegisterService
 
   def getParamDateTime
     @datetime
+  end
+
+  def getAllExpertTypes
+    ExpertType.all
+  end
+
+  def getParamExpertTypeId
+    @expert_type_id
+  end
+
+  def getExpertType
+    ExpertType.find(@expert_type_id)
   end
 end

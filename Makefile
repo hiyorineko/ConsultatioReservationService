@@ -10,6 +10,7 @@ init:
 setup:
 	docker compose exec web rails db:create
 	docker compose exec web rails db:migrate
+	docker compose exec web rails db:seed
 	docker compose exec web rails webpacker:install
 	docker compose exec web rails webpacker:compile
 	docker compose exec web rails db:create RAILS_ENV=test

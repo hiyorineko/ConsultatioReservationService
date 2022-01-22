@@ -3,15 +3,25 @@
 <h2>予約登録</h2>
 
 <div>
+    <h3>相談したいエキスパートの種類を選択してください</h3>
+    <ul class="expertOptionList">
+        <% @expert_types.each do |expert_type| %>
+            <li <% if @expert_type_id == expert_type.id  %> class="isSelected" <% end %>>
+                <a href="<%= users_reserve_register_path(expert_type_id: expert_type.id) %>"><%= expert_type.name %></a>
+            </li>
+        <% end %>
+    </ul>
     <h3>ご要望があればエキスパートを選択してください</h3>
-    <ul class="stylistOptionList">
+    <ul class="expertOptionList">
         <li <% if !@expert_id  %> class="isSelected" <% end %>>
             <a href="<%= users_reserve_register_path %>">指名なし</a>
         </li>
     <% @experts.each do |expert| %>
+            <% if !expert.name.empty?  %>
             <li <% if @expert_id == expert.id  %> class="isSelected" <% end %>>
                 <a href="<%= users_reserve_register_path(expert_id: expert.id) %>"><%= expert.name %></a>
             </li>
+            <% end %>
     <% end %>
     </ul>
     <% if @expert  %>
@@ -62,7 +72,7 @@
                 <table>
                     <tbody>
                     <% @frames.each do |frame| %>
-                        <tr><th><%= frame.strftime('%H:%M') %></th></tr>
+                        <tr class="reservable-frame-row"><th><%= frame.strftime('%H:%M') %></th></tr>
                     <% end %>
                     </tbody>
                 </table>
@@ -72,13 +82,15 @@
                     <table>
                         <tbody>
                         <% v.each do |schedule| %>
-                            <tr><td>
+                            <tr class="reservable-frame-row">
+                                <td>
                                 <% if schedule['reservable'] %>
-                                    <%= link_to "○", users_reserve_register_confirm_path(expert_id: @expert_id, datetime: schedule['datetime']) %>
+                                    <%= link_to "○", users_reserve_register_confirm_path(expert_id: @expert_id, datetime: schedule['datetime'], expert_type_id: @expert_type_id) %>
                                 <% else %>
                                     <span>×</span>
                                 <% end %>
-                            </td></tr>
+                                </td>
+                            </tr>
                         <% end %>
                         </tbody>
                     </table>
@@ -88,7 +100,7 @@
                 <table>
                     <tbody>
                     <% @frames.each do |frame| %>
-                        <tr><th><%= frame.strftime('%H:%M') %></th></tr>
+                        <tr class="reservable-frame-row"><th><%= frame.strftime('%H:%M') %></th></tr>
                     <% end %>
                     </tbody>
                 </table>

@@ -1,7 +1,7 @@
 class Users::ReservesController < ApplicationController
   layout 'users'
   def index
-    @reserves = Reserve.eager_load(:expert)
+    @reserves = Reserve.eager_load({expert: :expert_type})
                        .where(user_id: current_user.id)
                        .order(start_at: "DESC")
   end

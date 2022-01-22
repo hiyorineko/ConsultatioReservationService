@@ -1,0 +1,2 @@
+class ExpertType < ApplicationRecord
+end

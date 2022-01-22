@@ -6,8 +6,9 @@ class Users::ReserveRegisterController < ApplicationController
       params[:page],
       params[:expert_id],
       params[:datetime],
-      params[:user_comment]
-    )
+      params[:user_comment],
+      params[:expert_type_id] ? params[:expert_type_id] : 1
+      )
   end
 
   def index
@@ -15,7 +16,9 @@ class Users::ReserveRegisterController < ApplicationController
     @page = @reserve_register_service.getParamPage
     @expert_id = @reserve_register_service.getParamExpertId
     @expert = @reserve_register_service.getExpert
-    @experts = @reserve_register_service.getAllExperts
+    @experts = @reserve_register_service.getExperts
+    @expert_types = @reserve_register_service.getAllExpertTypes
+    @expert_type_id = @reserve_register_service.getParamExpertTypeId
     @dates = @reserve_register_service.getDates
     @frames = @reserve_register_service.getReserveFrames
     @reservable_frames = @reserve_register_service.getReservableFrames
@@ -26,6 +29,7 @@ class Users::ReserveRegisterController < ApplicationController
     @expert_id = @reserve_register_service.getParamExpertId
     @datetime = @reserve_register_service.getParamDateTime
     @expert = @reserve_register_service.getExpert
+    @expert_type = @reserve_register_service.getExpertType
   end
 
   def register

@@ -6,6 +6,7 @@ class Expert < ApplicationRecord
 
   has_many :reserve
   has_many :reservable_frame
+  belongs_to :expert_type
 
   mount_uploader :user_image, UserImageUploader
 

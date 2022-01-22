@@ -3,14 +3,12 @@
 <h2>プロフィールの編集</h2>
 <div class="mypage-edit">
     <%= form_with url: experts_profile_path, method: :patch, html: {:multipart => true} do |f| %>
+        <div><label>専門</label><div><%= f.select :expert_type_id, ExpertType.all.map { |expert_type| [expert_type.name, expert_type.id] }, { selected: @expert.expert_type_id } %></div></div>
         <div><label>名前</label><div><input type="test" name="name" value="<%= @expert.name %>" class="textarea-primary"></div></div>
         <div><label>プロフィール</label><div><input type="textarea" name="profile" value="<%= @expert.profile %>" class="textarea-primary"></div></div>
         <div><label>プロフィール画像</label>
-            <div>
-        <%= image_tag @expert.user_image.to_s if @expert.user_image? %>
-        <%= f.file_field :user_image %>
-        <%= f.hidden_field :user_image_cache %>
-            </div>
+        <div><%= image_tag @expert.user_image.to_s if @expert.user_image? %></div>
+        <div><%= f.file_field :user_image %></div>
         </div>
         <div class="row">
             <p><input type="submit" value="保存する" class="btn primary"></p>

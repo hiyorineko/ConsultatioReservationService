@@ -59,6 +59,10 @@ input[type=checkbox] {
     height: 45px;
 }
 
+.reservable-frame-row td{
+    font-size: x-large;
+}
+
 .calendar table {
     table-layout: fixed;
 }
@@ -97,8 +101,9 @@ input[type=checkbox] {
     .reservable-frame-row {
         height: 20px;
     }
-
-
+    .reservable-frame-row td{
+        font-size: x-small;
+    }
     .desc .img {
         width: 20%;
     }
