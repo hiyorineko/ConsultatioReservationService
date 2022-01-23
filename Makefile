@@ -49,3 +49,11 @@ db:
 	docker compose exec db bash
 sql:
 	docker compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
+test:
+	docker compose exec web bundle exec rspec
+cache-clear:
+	docker compose exec web bundle exec rails r 'Rails.cache.clear'
+migrate:
+	docker compose exec web rails db:create
+seed:
+	docker compose exec web rails db:seed
