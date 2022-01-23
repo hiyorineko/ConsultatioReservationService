@@ -129,6 +129,8 @@ Rails.application.configure do
     :password => ENV.fetch("SEND_MAIL_PASSWORD"),
     :authentication => :plain,
     :enable_starttls_auto => true
-  }end
+  }
 
   config.force_ssl = true
+
+end
