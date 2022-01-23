@@ -23,7 +23,7 @@ http://0.0.0.0:3000/expert/sign_in
 
 ### テスト
 ```shell
-make rspec
+make test
 ```
 
 ### メール設定
