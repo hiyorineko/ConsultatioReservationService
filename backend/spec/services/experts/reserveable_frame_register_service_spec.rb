@@ -10,7 +10,7 @@ RSpec.describe Experts::ReservableFrameRegisterService do
       )
       @reserve = FactoryBot.create(:reserve, start_at: '2022-1-20 10:00'.to_time, expert_id: @reservable_frame.expert_id)
       @reservableFrame1 = FactoryBot.create(:reservable_frame, start_at: '2022-2-02 10:00'.to_time, expert_id: @reservable_frame.expert_id)
-      @reservableFrame2 = FactoryBot.create(:reservable_frame, start_at: '2022-2-02 18:00'.to_time, expert_id: @reservable_frame.expert_id)
+      @reservableFrame2 = FactoryBot.create(:reservable_frame, start_at: '2022-2-02 17:30'.to_time, expert_id: @reservable_frame.expert_id)
       @reservableFrame3 = FactoryBot.create(:reservable_frame, start_at: '2022-3-01 12:00'.to_time, expert_id: @reservable_frame.expert_id)
       @reservableFrame4 = FactoryBot.create(:reservable_frame, start_at: '2022-3-02 13:30'.to_time, expert_id: @reservable_frame.expert_id)
       FactoryBot.create(:reservable_frame, start_at: '2022-1-08 10:30'.to_time, expert_id: @reservable_frame.expert_id)
@@ -28,7 +28,7 @@ RSpec.describe Experts::ReservableFrameRegisterService do
       result = @service.getReservableFrames
       expect_true = {"datetime" => '2022-1-31 12:00'.to_time, "registered" => true, "reservable" => true, "reserved" => false}
       expect_first = {"datetime" => '2022-1-20 10:00'.to_time, "registered" => false, "reservable" => true, "reserved" => true}
-      expect_last = {"datetime" => '2022-2-02 18:00'.to_time, "registered" => true, "reservable" => true, "reserved" => false}
+      expect_last = {"datetime" => '2022-2-02 17:30'.to_time, "registered" => true, "reservable" => true, "reserved" => false}
       expect(result).to include "2022-01-20"
       expect(result).to include "2022-02-02"
       expect(result["2022-01-20"].first).to eq expect_first
@@ -59,10 +59,10 @@ RSpec.describe Experts::ReservableFrameRegisterService do
     end
     it "verifyReservableFrames" do
       # 平日 予約可能枠の範囲内 予約済みのデータあり
-      testcase1 = {"2022-01-20 10:00:00 +0000"=>"0", "2022-01-20 10:30:00 +0000"=>"0", "2022-01-20 11:00:00 +0000"=>"0", "2022-01-20 11:30:00 +0000"=>"0", "2022-01-20 12:00:00 +0000"=>"0", "2022-01-20 12:30:00 +0000"=>"0", "2022-01-20 13:00:00 +0000"=>"0", "2022-01-20 13:30:00 +0000"=>"0", "2022-01-20 14:00:00 +0000"=>"0", "2022-01-20 14:30:00 +0000"=>"0", "2022-01-20 15:00:00 +0000"=>"0", "2022-01-20 15:30:00 +0000"=>"0", "2022-01-20 16:00:00 +0000"=>"0", "2022-01-20 16:30:00 +0000"=>"0", "2022-01-20 17:00:00 +0000"=>"0", "2022-01-20 17:30:00 +0000"=>"0", "2022-01-20 18:00:00 +0000"=>"0"}
+      testcase1 = {"2022-01-20 10:00:00 +0000"=>"0", "2022-01-20 10:30:00 +0000"=>"0", "2022-01-20 11:00:00 +0000"=>"0", "2022-01-20 11:30:00 +0000"=>"0", "2022-01-20 12:00:00 +0000"=>"0", "2022-01-20 12:30:00 +0000"=>"0", "2022-01-20 13:00:00 +0000"=>"0", "2022-01-20 13:30:00 +0000"=>"0", "2022-01-20 14:00:00 +0000"=>"0", "2022-01-20 14:30:00 +0000"=>"0", "2022-01-20 15:00:00 +0000"=>"0", "2022-01-20 15:30:00 +0000"=>"0", "2022-01-20 16:00:00 +0000"=>"0", "2022-01-20 16:30:00 +0000"=>"0", "2022-01-20 17:00:00 +0000"=>"0", "2022-01-20 17:30:00 +0000"=>"0"}
       result1 = @service.verifyReservableFrames(testcase1)
       expect(result1).to eq false
-      testcase2 = {"2022-02-01 10:00:00 +0000"=>"0", "2022-02-01 10:30:00 +0000"=>"0", "2022-02-01 11:00:00 +0000"=>"0", "2022-02-01 11:30:00 +0000"=>"0", "2022-02-01 12:00:00 +0000"=>"0", "2022-02-01 12:30:00 +0000"=>"0", "2022-02-01 13:00:00 +0000"=>"0", "2022-02-01 13:30:00 +0000"=>"0", "2022-02-01 14:00:00 +0000"=>"0", "2022-02-01 14:30:00 +0000"=>"0", "2022-02-01 15:00:00 +0000"=>"0", "2022-02-01 15:30:00 +0000"=>"0", "2022-02-01 16:00:00 +0000"=>"0", "2022-02-01 16:30:00 +0000"=>"0", "2022-02-01 17:00:00 +0000"=>"0", "2022-02-01 17:30:00 +0000"=>"0", "2022-02-01 18:00:00 +0000"=>"0"}
+      testcase2 = {"2022-02-01 10:00:00 +0000"=>"0", "2022-02-01 10:30:00 +0000"=>"0", "2022-02-01 11:00:00 +0000"=>"0", "2022-02-01 11:30:00 +0000"=>"0", "2022-02-01 12:00:00 +0000"=>"0", "2022-02-01 12:30:00 +0000"=>"0", "2022-02-01 13:00:00 +0000"=>"0", "2022-02-01 13:30:00 +0000"=>"0", "2022-02-01 14:00:00 +0000"=>"0", "2022-02-01 14:30:00 +0000"=>"0", "2022-02-01 15:00:00 +0000"=>"0", "2022-02-01 15:30:00 +0000"=>"0", "2022-02-01 16:00:00 +0000"=>"0", "2022-02-01 16:30:00 +0000"=>"0", "2022-02-01 17:00:00 +0000"=>"0", "2022-02-01 17:30:00 +0000"=>"0"}
       # 平日 予約可能枠の範囲内 予約済みのデータなし
       result2 = @service.verifyReservableFrames(testcase2)
       expect(result2).to eq true
@@ -96,7 +96,7 @@ RSpec.describe Experts::ReservableFrameRegisterService do
       expect(result9).to eq false
     end
     it "reservableFramesRegister" do
-      testcase = {"2022-02-02 10:00:00 +0000"=>"0", "2022-02-02 10:30:00 +0000"=>"0", "2022-02-02 11:00:00 +0000"=>"1", "2022-02-02 11:30:00 +0000"=>"0", "2022-02-02 12:00:00 +0000"=>"0", "2022-02-02 12:30:00 +0000"=>"0", "2022-02-02 13:00:00 +0000"=>"0", "2022-02-02 13:30:00 +0000"=>"0", "2022-02-02 14:00:00 +0000"=>"0", "2022-02-02 14:30:00 +0000"=>"0", "2022-02-02 15:00:00 +0000"=>"0", "2022-02-02 15:30:00 +0000"=>"0", "2022-02-02 16:00:00 +0000"=>"0", "2022-02-02 16:30:00 +0000"=>"0", "2022-02-02 17:00:00 +0000"=>"0", "2022-02-02 17:30:00 +0000"=>"0", "2022-02-02 18:00:00 +0000"=>"0"}
+      testcase = {"2022-02-02 10:00:00 +0000"=>"0", "2022-02-02 10:30:00 +0000"=>"0", "2022-02-02 11:00:00 +0000"=>"1", "2022-02-02 11:30:00 +0000"=>"0", "2022-02-02 12:00:00 +0000"=>"0", "2022-02-02 12:30:00 +0000"=>"0", "2022-02-02 13:00:00 +0000"=>"0", "2022-02-02 13:30:00 +0000"=>"0", "2022-02-02 14:00:00 +0000"=>"0", "2022-02-02 14:30:00 +0000"=>"0", "2022-02-02 15:00:00 +0000"=>"0", "2022-02-02 15:30:00 +0000"=>"0", "2022-02-02 16:00:00 +0000"=>"0", "2022-02-02 16:30:00 +0000"=>"0", "2022-02-02 17:00:00 +0000"=>"0", "2022-02-02 17:30:00 +0000"=>"0"}
       expect{ @service.reservableFramesRegister(testcase) }.to change(ReservableFrame,:count).by(-2)
       expect(ReservableFrame.where(id: @reservableFrame1.id )).not_to exist
       expect(ReservableFrame.where(id: @reservableFrame2.id )).not_to exist

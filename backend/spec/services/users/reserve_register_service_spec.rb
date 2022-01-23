@@ -40,7 +40,7 @@ RSpec.describe Users::ReserveRegisterService do
       result = @reserve_register_service.getReservableFrames
       expect_true = {"datetime" => '2022-1-31 12:00'.to_time, "reservable" => true}
       expect_first = {"datetime" => '2022-1-20 10:00'.to_time, "reservable" => false}
-      expect_last = {"datetime" => '2022-2-02 18:00'.to_time, "reservable" => false}
+      expect_last = {"datetime" => '2022-2-02 17:30'.to_time, "reservable" => false}
       expect_not_include = {"datetime" => '2022-1-22 12:00'.to_time, "reservable" => true}
       expect(result).to include "2022-01-20"
       expect(result).to include "2022-02-02"
@@ -90,12 +90,12 @@ RSpec.describe Users::ReserveRegisterService do
     end
     it "getLastFrame" do
       result = @reserve_register_service.getLastFrame
-      expect(result).to eq '2022-2-02 18:00'.to_time
+      expect(result).to eq '2022-2-02 17:30'.to_time
     end
     it "getReserveFrames" do
       result = @reserve_register_service.getReserveFrames
       expect(result.first).to eq '2022-1-20 10:00'.to_time
-      expect(result.last).to eq '2022-1-20 18:00'.to_time
+      expect(result.last).to eq '2022-1-20 17:30'.to_time
     end
     it "getParamPage" do
       result = @reserve_register_service.getParamPage

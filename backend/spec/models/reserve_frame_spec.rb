@@ -16,9 +16,9 @@ RSpec.describe ReserveFrame do
       # 平日の予約枠の範囲内
       test_time2 = '2022-1-20 10:00'.to_time
       test_time3 = '2022-1-20 12:00'.to_time
-      test_time4 = '2022-1-20 18:00'.to_time
+      test_time4 = '2022-1-20 17:30'.to_time
       # 平日の予約枠の範囲内
-      test_time5 = '2022-1-20 18:01'.to_time
+      test_time5 = '2022-1-20 17:31'.to_time
       expect(@reserve_frame.verifyFrameWeekday(test_time1)).to eq false
       expect(@reserve_frame.verifyFrameWeekday(test_time2)).to eq true
       expect(@reserve_frame.verifyFrameWeekday(test_time3)).to eq true
