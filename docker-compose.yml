@@ -10,6 +10,8 @@ services:
     ports:
       - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
+    cap_add:
+      - SYS_NICE
   web:
     build:
       context: .
